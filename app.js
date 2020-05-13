@@ -365,8 +365,37 @@ if (e.target.className === "japaneseP") {
 
 }
 
-
-
 });
 
+
+
+
+document.oncopy = () => {
+    getSelectedText();
+};
+
+
+
+function getSelectedText () {
+
+    let definitionScreen;
+
+    if (window.getSelection) {  // all browsers, except IE before version 9
+        var range = window.getSelection();
+        var rangeToString = range.toString().trim().toLowerCase();
+        var rangeToArray = rangeToString.split(" ");
+
+        if (rangeToArray.length === 1) {
+            definitionScreen = window.open(`https://jisho.org/search/${rangeToString}`,"_blank" );
+            
+        } else if(rangeToArray.length > 1) {
+            definitionScreen = window.open(`https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${rangeToString}`, "_blank" ) 
+          
+        } else {
+            console.log("no text selected");
+        };
+     
+    };
+
+};
 
